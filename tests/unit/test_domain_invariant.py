@@ -1,6 +1,6 @@
 import pytest
 
-from src.domain.entities import CompletedOrder, Product, Reservation
+from src.domain.entities import Product, SelectedProductItems
 from src.domain.errors import ValidationError
 
 
@@ -32,21 +32,11 @@ def test_product_invariant_violation(fields: dict):
         Product(id=1, name="test", subcategory_id=1, **fields)
 
 
-def test_reservation():
-    Reservation(customer_id=1, product_id=1, quantity=1)
+def test_selected_product_items():
+    SelectedProductItems(customer_id=1, product_id=1, quantity=1)
 
     with pytest.raises(ValidationError):
-        Reservation(customer_id=1, product_id=1, quantity=0)
+        SelectedProductItems(customer_id=1, product_id=1, quantity=0)
 
     with pytest.raises(ValidationError):
-        Reservation(customer_id=1, product_id=1, quantity=-1)
-
-
-def test_completed_order():
-    CompletedOrder(customer_id=1, product_id=1, quantity=1)
-
-    with pytest.raises(ValidationError):
-        CompletedOrder(customer_id=1, product_id=1, quantity=0)
-
-    with pytest.raises(ValidationError):
-        CompletedOrder(customer_id=1, product_id=1, quantity=-1)
+        SelectedProductItems(customer_id=1, product_id=1, quantity=-1)
