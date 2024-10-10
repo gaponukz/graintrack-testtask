@@ -53,6 +53,16 @@ class Product:
 
         self.available -= quantity
 
+    @contract(DomainInvariant)
+    def set_price(self, price: float):
+        assert price >= 0, "Price can not be negative"
+        self.price = price
+
+    @contract(DomainInvariant)
+    def set_discount(self, discount: int):
+        assert 0 <= discount <= 100, "Discount need to be in range [0, 100]"
+        self.discount = discount
+
     @property
     def final_price(self):
         return self.price - (self.price * self.discount) / 100

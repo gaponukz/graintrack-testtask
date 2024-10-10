@@ -12,10 +12,9 @@ class EditProduct(EditProductUseCase):
             product = self._uow.product_repository.get(dto.product_id, for_update=True)
 
             if dto.price is not None:
-                product.price = dto.price
+                product.set_price(dto.price)
 
             if dto.discount is not None:
-                product.discount = dto.discount
+                product.set_discount(dto.discount)
 
-            product.validate_price()
             self._uow.product_repository.update(product)

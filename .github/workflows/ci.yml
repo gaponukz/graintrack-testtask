@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test:
-    name: Unit tests
+    name: Unit tests and linter
     runs-on: ubuntu-latest
 
     steps:
@@ -21,5 +21,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Run mypy
+      run: mypy src tests --explicit-package-bases --ignore-missing-imports
+      
     - name: Run pytest
       run: python -m pytest tests/unit
