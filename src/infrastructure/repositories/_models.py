@@ -52,6 +52,7 @@ class CustomerModel(BaseModel):
 class ReservationModel(BaseModel):
     class Meta:
         db_table = "reservations"
+        primary_key = False
         indexes = (
             (
                 (
@@ -70,6 +71,7 @@ class ReservationModel(BaseModel):
 class CompletedOrderModel(BaseModel):
     class Meta:
         db_table = "completed_orders"
+        primary_key = False
         indexes = (
             (
                 (

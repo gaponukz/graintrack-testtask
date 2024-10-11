@@ -96,7 +96,7 @@ class SqlProductRepository(ProductRepository):
             name=model.name,
             price=model.price,
             subcategory_id=model.subcategory_id,
-            available=model.aviable,
+            available=model.available,
             reserved=model.reserved,
             discount=model.discount,
         )
@@ -104,11 +104,11 @@ class SqlProductRepository(ProductRepository):
 
 class SqlReservationRepository(ReservationRepository):
     def create(self, reservation: SelectedProductItems):
-        ReservationModel.insert(
+        ReservationModel(
             customer=reservation.customer_id,
             product=reservation.product_id,
             quantity=reservation.quantity,
-        ).execute()
+        ).save()
 
     def get(self, customer_id: int, product_id: int) -> SelectedProductItems:
         reservation = (
