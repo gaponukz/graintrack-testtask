@@ -30,22 +30,22 @@ class SqlProductRepository(ProductRepository):
         ).execute()
 
     def get_list(self, filters: GetProductsInputDTO) -> list[Product]:
+        where = ProductModel.available > 0
+
         if filters.subcategory_id is not None:
-            products = ProductModel.select().where(
-                ProductModel.subcategory == filters.subcategory_id
-            )
+            products = ProductModel.select()
+            where &= ProductModel.subcategory == filters.subcategory_id
 
         elif filters.category_id:
-            products = (
-                ProductModel.select()
-                .join(SubcategoryModel)
-                .where(SubcategoryModel.category == filters.category_id)
-            )
+            products = ProductModel.select().join(SubcategoryModel)
+            where &= SubcategoryModel.category == filters.category_id
 
         else:
             products = ProductModel.select()
 
-        return [self._from_model_to_entity(product) for product in products]
+        return [
+            self._from_model_to_entity(product) for product in products.where(where)
+        ]
 
     def get(self, product_id: int, for_update: bool = False) -> Product:
         query = ProductModel.select().where(ProductModel.id == product_id)

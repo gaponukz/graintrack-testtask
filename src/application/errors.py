@@ -2,9 +2,13 @@ class ApplicationError(Exception):
     pass
 
 
-class ProductNotFoundError(ApplicationError):
+class NotFoundError(ApplicationError):
     pass
 
 
-class ReservationNotFoundError(ApplicationError):
+class ProductNotFoundError(NotFoundError):
+    pass
+
+
+class ReservationNotFoundError(NotFoundError):
     pass
