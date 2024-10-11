@@ -58,3 +58,11 @@ API має підтримувати операції:
 - `POST /products/unreserve` для скасування резерву
 - `POST /products/sell` для продажу товару
 - `POST /products/report` для звіту про товари що були продані можливими фільтрами
+
+## How to run
+1. Create venv with python (3.11 in my case)
+2. Install requirements
+3. Make migration (+ add password for "app" user)
+4. Add APP_DB_CONFIG to your env
+5. `fastapi dev app.py `
+6. Add categories and subcategories from superuser because app user can not do this (PoLP)
