@@ -47,5 +47,18 @@ CREATE TABLE completed_orders (
 );
 
 CREATE INDEX idx_subcategories_category_id ON subcategories (category_id);
-
 CREATE INDEX idx_products_subcategory_id ON products (subcategory_id);
+
+GRANT SELECT ON TABLE categories TO app;
+GRANT SELECT ON TABLE subcategories TO app;
+GRANT SELECT,INSERT ON TABLE products TO app;
+GRANT UPDATE(price) ON TABLE products TO app;
+GRANT UPDATE(discount) ON TABLE products TO app;
+GRANT UPDATE(available) ON TABLE products TO app;
+GRANT UPDATE(reserved) ON TABLE products TO app;
+GRANT USAGE ON SEQUENCE products_id_seq TO app;
+GRANT DELETE ON TABLE products TO app;
+GRANT SELECT ON TABLE customers TO app;
+GRANT SELECT,INSERT ON TABLE reservations TO app;
+GRANT DELETE ON TABLE reservations TO app;
+GRANT SELECT,INSERT ON TABLE completed_orders TO app;
