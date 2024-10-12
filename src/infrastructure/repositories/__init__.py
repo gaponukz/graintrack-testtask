@@ -186,14 +186,14 @@ class SqlCompletedOrderRepository(CompletedOrderRepository):
         elif dto.category_id is not None:
             orders = orders.where(CategoryModel.id == dto.category_id)
 
-        return [
+        return GetSellReportOutputDTO(
             GetSellReportItem(
                 category_name=item.category_name,
                 subcategory_name=item.subcategory_name,
                 quantity=item.quantity,
             )
             for item in orders
-        ]
+        )
 
 
 class SqlUnitOfWork(UnitOfWork):
