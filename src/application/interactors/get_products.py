@@ -1,6 +1,6 @@
-from application.usecases import GetProductsUseCase
 from src.application.dto import GetProductsInputDTO
 from src.application.persistent import UnitOfWork
+from src.application.usecases import GetProductsUseCase
 from src.domain.entities import Product
 
 

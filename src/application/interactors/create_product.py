@@ -1,6 +1,6 @@
-from application.usecases import CreateProductUseCase
 from src.application.dto import CreateProductInputDTO, CreateProductOutputDTO
 from src.application.persistent import UnitOfWork
+from src.application.usecases import CreateProductUseCase
 
 
 class CreateProduct(CreateProductUseCase):

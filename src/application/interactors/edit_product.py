@@ -1,6 +1,6 @@
-from application.usecases import EditProductUseCase
 from src.application.dto import EditProductInputDTO
 from src.application.persistent import UnitOfWork
+from src.application.usecases import EditProductUseCase
 
 
 class EditProduct(EditProductUseCase):
