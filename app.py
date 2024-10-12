@@ -21,7 +21,7 @@ from src.application.interactors.get_products import GetProducts
 from src.application.interactors.get_sell_report import GetSellReport
 from src.application.interactors.reserve_product import ReserveProduct
 from src.application.interactors.sell_product import SellProduct
-from src.application.usercases import (
+from src.application.usecases import (
     CancelReservationUseCase,
     CreateProductUseCase,
     DeleteProductUseCase,
@@ -32,7 +32,7 @@ from src.application.usercases import (
     SellProductUseCase,
 )
 from src.domain.entities import Product, SelectedProductItems
-from src.infrastructure.contollers import ErrorHandlingMiddleware
+from src.infrastructure.controllers import ErrorHandlingMiddleware
 from src.infrastructure.repositories import SqlUnitOfWork, db
 from stub import Stub
 

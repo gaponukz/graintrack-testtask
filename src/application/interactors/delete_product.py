@@ -1,5 +1,5 @@
+from application.usecases import DeleteProductUseCase
 from src.application.persistent import UnitOfWork
-from src.application.usercases import DeleteProductUseCase
 
 
 class DeleteProduct(DeleteProductUseCase):

@@ -1,5 +1,5 @@
+from application.usecases import ReserveProductUseCase
 from src.application.persistent import UnitOfWork
-from src.application.usercases import ReserveProductUseCase
 from src.domain.entities import SelectedProductItems
 
 

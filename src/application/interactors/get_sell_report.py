@@ -1,6 +1,6 @@
+from application.usecases import GetSellReportUseCase
 from src.application.dto import GetSellReportInputDTO, GetSellReportOutputDTO
 from src.application.persistent import UnitOfWork
-from src.application.usercases import GetSellReportUseCase
 
 
 class GetSellReport(GetSellReportUseCase):
