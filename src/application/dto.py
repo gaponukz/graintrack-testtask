@@ -39,3 +39,22 @@ class EditProductInputDTO:
 class CancelReservationInputDTO:
     customer_id: int
     product_id: int
+
+
+@dataclasses.dataclass
+class GetSellReportInputDTO:
+    limit: int
+    offset: int
+    category_id: typing.Optional[int] = None
+    subcategory_id: typing.Optional[int] = None
+
+
+@dataclasses.dataclass
+class GetSellReportItem:
+    category_name: str
+    subcategory_name: str
+    quantity: int
+
+
+class GetSellReportOutputDTO(list[GetSellReportItem]):
+    pass

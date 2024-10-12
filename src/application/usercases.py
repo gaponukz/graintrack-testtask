@@ -5,6 +5,8 @@ from src.application.dto import (
     CreateProductOutputDTO,
     EditProductInputDTO,
     GetProductsInputDTO,
+    GetSellReportInputDTO,
+    GetSellReportOutputDTO,
 )
 from src.domain.entities import Product, SelectedProductItems
 
@@ -34,4 +36,8 @@ class CancelReservationUseCase(UseCase[CancelReservationInputDTO, None]):
 
 
 class SellProductUseCase(UseCase[SelectedProductItems, None]):
+    pass
+
+
+class GetSellReportUseCase(UseCase[GetSellReportInputDTO, GetSellReportOutputDTO]):
     pass

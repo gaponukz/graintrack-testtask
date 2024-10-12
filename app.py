@@ -10,12 +10,15 @@ from src.application.dto import (
     CreateProductOutputDTO,
     EditProductInputDTO,
     GetProductsInputDTO,
+    GetSellReportInputDTO,
+    GetSellReportItem,
 )
 from src.application.interactors.cancel_reservation import CancelReservation
 from src.application.interactors.create_product import CreateProduct
 from src.application.interactors.delete_product import DeleteProduct
 from src.application.interactors.edit_product import EditProduct
 from src.application.interactors.get_products import GetProducts
+from src.application.interactors.get_sell_report import GetSellReport
 from src.application.interactors.reserve_product import ReserveProduct
 from src.application.interactors.sell_product import SellProduct
 from src.application.usercases import (
@@ -24,6 +27,7 @@ from src.application.usercases import (
     DeleteProductUseCase,
     EditProductUseCase,
     GetProductsUseCase,
+    GetSellReportUseCase,
     ReserveProductUseCase,
     SellProductUseCase,
 )
@@ -110,6 +114,26 @@ def sell_products(
     return "OK"
 
 
+@app.get("/products/sell/report", response_model=list[GetSellReportItem])
+def get_sell_report(
+    limit: int,
+    offset: int,
+    get_sell_report: typing.Annotated[
+        GetSellReportUseCase, Depends(Stub(GetSellReportUseCase))
+    ],
+    category_id: typing.Optional[int] = None,
+    subcategory_id: typing.Optional[int] = None,
+):
+    return get_sell_report(
+        GetSellReportInputDTO(
+            limit=limit,
+            offset=offset,
+            category_id=category_id,
+            subcategory_id=subcategory_id,
+        )
+    )
+
+
 db.initialize(PostgresqlExtDatabase(**config.DB_CONFIG))
 uow = SqlUnitOfWork()
 
@@ -121,6 +145,7 @@ app.dependency_overrides = {
     ReserveProductUseCase: lambda: ReserveProduct(uow),
     CancelReservationUseCase: lambda: CancelReservation(uow),
     SellProductUseCase: lambda: SellProduct(uow),
+    GetSellReportUseCase: lambda: GetSellReport(uow),
 }
 
 

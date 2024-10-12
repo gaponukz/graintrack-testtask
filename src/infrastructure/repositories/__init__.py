@@ -1,6 +1,14 @@
 from __future__ import annotations
 
-from src.application.dto import CreateProductInputDTO, GetProductsInputDTO
+from peewee import fn
+
+from src.application.dto import (
+    CreateProductInputDTO,
+    GetProductsInputDTO,
+    GetSellReportInputDTO,
+    GetSellReportItem,
+    GetSellReportOutputDTO,
+)
 from src.application.errors import ProductNotFoundError, ReservationNotFoundError
 from src.application.persistent import (
     CompletedOrderRepository,
@@ -10,6 +18,7 @@ from src.application.persistent import (
 )
 from src.domain.entities import CompletedOrder, Product, SelectedProductItems
 from src.infrastructure.repositories._models import (
+    CategoryModel,
     CompletedOrderModel,
     ProductModel,
     ReservationModel,
@@ -154,6 +163,37 @@ class SqlCompletedOrderRepository(CompletedOrderRepository):
             product=order.product_id,
             quantity=order.quantity,
         ).execute()
+
+    def get_sell_report(self, dto: GetSellReportInputDTO) -> GetSellReportOutputDTO:
+        orders = (
+            CompletedOrderModel.select(
+                SubcategoryModel.name.alias("subcategory_name"),
+                CategoryModel.name.alias("category_name"),
+                fn.SUM(CompletedOrderModel.quantity).alias("quantity"),
+            )
+            .join(ProductModel)
+            .join(SubcategoryModel)
+            .join(CategoryModel)
+            .group_by(CategoryModel.id, SubcategoryModel.id)
+            .limit(dto.limit)
+            .offset(dto.offset)
+            .objects()
+        )
+
+        if dto.subcategory_id is not None:
+            orders = orders.where(SubcategoryModel.id == dto.subcategory_id)
+
+        elif dto.category_id is not None:
+            orders = orders.where(CategoryModel.id == dto.category_id)
+
+        return [
+            GetSellReportItem(
+                category_name=item.category_name,
+                subcategory_name=item.subcategory_name,
+                quantity=item.quantity,
+            )
+            for item in orders
+        ]
 
 
 class SqlUnitOfWork(UnitOfWork):

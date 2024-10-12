@@ -57,7 +57,7 @@ API має підтримувати операції:
 - `POST /products/reserve` для резервування товару
 - `POST /products/unreserve` для скасування резерву
 - `POST /products/sell` для продажу товару
-- `POST /products/report` для звіту про товари що були продані можливими фільтрами
+- `POST /products/sell/report` для звіту про товари що були продані можливими фільтрами
 
 ## How to run
 1. Create venv with python (3.11 in my case)

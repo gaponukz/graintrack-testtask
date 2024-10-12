@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import typing
 
-from src.application.dto import CreateProductInputDTO, GetProductsInputDTO
+from src.application.dto import (
+    CreateProductInputDTO,
+    GetProductsInputDTO,
+    GetSellReportInputDTO,
+    GetSellReportOutputDTO,
+)
 from src.domain.entities import CompletedOrder, Product, SelectedProductItems
 
 
@@ -28,6 +33,8 @@ class ReservationRepository(typing.Protocol):
 
 class CompletedOrderRepository(typing.Protocol):
     def create(self, order: CompletedOrder): ...
+
+    def get_sell_report(self, dto: GetSellReportInputDTO) -> GetSellReportOutputDTO: ...
 
 
 class UnitOfWork(typing.Protocol):
