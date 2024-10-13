@@ -19,5 +19,6 @@ class SellProduct(SellProductUseCase):
                     customer_id=dto.customer_id,
                     product_id=dto.product_id,
                     quantity=dto.quantity,
+                    total=product.final_price,
                 )
             )

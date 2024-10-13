@@ -54,6 +54,7 @@ class GetSellReportItem:
     category_name: str
     subcategory_name: str
     quantity: int
+    total: float
 
 
 class GetSellReportOutputDTO(list[GetSellReportItem]):

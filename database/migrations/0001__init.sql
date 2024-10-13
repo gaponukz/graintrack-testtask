@@ -38,16 +38,18 @@ CREATE TABLE reservations (
 );
 
 CREATE TABLE completed_orders (
+    id SERIAL PRIMARY KEY,
     customer_id INTEGER NOT NULL,
     product_id INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
-    PRIMARY KEY (customer_id, product_id),
+    total double precision NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
 CREATE INDEX idx_subcategories_category_id ON subcategories (category_id);
 CREATE INDEX idx_products_subcategory_id ON products (subcategory_id);
+CREATE INDEX idx_completed_orders_product_id ON completed_orders (product_id);
 
 GRANT SELECT ON TABLE categories TO app;
 GRANT SELECT ON TABLE subcategories TO app;
@@ -62,3 +64,4 @@ GRANT SELECT ON TABLE customers TO app;
 GRANT SELECT,INSERT ON TABLE reservations TO app;
 GRANT DELETE ON TABLE reservations TO app;
 GRANT SELECT,INSERT ON TABLE completed_orders TO app;
+GRANT USAGE ON SEQUENCE completed_orders_id_seq TO app;
