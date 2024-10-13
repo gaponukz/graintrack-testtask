@@ -71,7 +71,6 @@ class ReservationModel(BaseModel):
 class CompletedOrderModel(BaseModel):
     class Meta:
         db_table = "completed_orders"
-        primary_key = False
         indexes = (
             (
                 (
@@ -85,3 +84,4 @@ class CompletedOrderModel(BaseModel):
     customer = ForeignKeyField(CustomerModel)
     product = ForeignKeyField(ProductModel)
     quantity = IntegerField()
+    total = DoubleField()

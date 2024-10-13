@@ -81,4 +81,4 @@ class SelectedProductItems:
 
 @dataclasses.dataclass
 class CompletedOrder(SelectedProductItems):
-    pass
+    total: float

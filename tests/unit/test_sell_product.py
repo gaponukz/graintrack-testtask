@@ -14,6 +14,7 @@ def test(uow):
         subcategory_id=1,
         available=1,
         reserved=1,
+        discount=50,
     )
 
     sell_product = SellProduct(uow)
@@ -30,6 +31,7 @@ def test(uow):
         customer_id=1,
         product_id=1,
         quantity=1,
+        total=5.0,
     )
 
 

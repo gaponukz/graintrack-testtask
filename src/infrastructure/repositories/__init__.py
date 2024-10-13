@@ -162,6 +162,7 @@ class SqlCompletedOrderRepository(CompletedOrderRepository):
             customer=order.customer_id,
             product=order.product_id,
             quantity=order.quantity,
+            total=order.total,
         ).execute()
 
     def get_sell_report(self, dto: GetSellReportInputDTO) -> GetSellReportOutputDTO:
@@ -170,6 +171,7 @@ class SqlCompletedOrderRepository(CompletedOrderRepository):
                 SubcategoryModel.name.alias("subcategory_name"),
                 CategoryModel.name.alias("category_name"),
                 fn.SUM(CompletedOrderModel.quantity).alias("quantity"),
+                fn.SUM(CompletedOrderModel.total).alias("total"),
             )
             .join(ProductModel)
             .join(SubcategoryModel)
@@ -191,6 +193,7 @@ class SqlCompletedOrderRepository(CompletedOrderRepository):
                 category_name=item.category_name,
                 subcategory_name=item.subcategory_name,
                 quantity=item.quantity,
+                total=item.total,
             )
             for item in orders
         )
